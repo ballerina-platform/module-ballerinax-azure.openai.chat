@@ -1,0 +1,9 @@
+[package]
+org = "ballerinax_samples"
+name = "chat_completion"
+version = "0.1.0"
+
+[[dependency]]
+org = "ballerinax"
+name = "azure.openai.chat"
+version = "4.0.0"

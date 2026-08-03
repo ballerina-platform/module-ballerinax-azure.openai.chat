@@ -1,0 +1,56 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'java'
+
+def graalvmFlag = ""
+
+task testExamples {
+    if (project.hasProperty("balGraalVMTest")) {
+        graalvmFlag = "--graalvm"
+    }
+    doLast {
+        try {
+            exec {
+                workingDir project.projectDir
+                println("Working dir: ${workingDir}")
+                if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+                    commandLine 'cmd', "/c", "chmod +x ./build.sh && ./build.sh run && exit %%ERRORLEVEL%%"
+                } else {
+                    commandLine 'sh', "-c", "chmod +x ./build.sh && ./build.sh run"
+                }
+            }
+        } catch (Exception e) {
+            println("Example Build failed: " + e.message)
+            throw e
+        }
+    }
+}
+
+task buildExamples {
+    gradle.taskGraph.whenReady { graph ->
+        if (graph.hasTask(":azure.openai.chat-examples:test")) {
+            buildExamples.enabled = false
+        } else {
+            testExamples.enabled = false
+        }
+    }
+    doLast {
+        try {
+            exec {
+                workingDir project.projectDir
+                println("Working dir: ${workingDir}")
+                if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+                    commandLine 'cmd', "/c", "chmod +x ./build.sh && ./build.sh build && exit %%ERRORLEVEL%%"
+                } else {
+                    commandLine 'sh', "-c", "chmod +x ./build.sh && ./build.sh build"
+                }
+            }
+        } catch (Exception e) {
+            println("Example Build failed: " + e.message)
+            throw e
+        }
+    }
+}
+
+buildExamples.dependsOn ":azure.openai.chat-ballerina:build"
+testExamples.dependsOn ":azure.openai.chat-ballerina:build"

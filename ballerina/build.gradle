@@ -1,0 +1,82 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+plugins {
+    id 'io.ballerina.plugin'
+}
+
+description = 'Azure OpenAI Chat - Ballerina'
+
+def packageName = "azure.openai.chat"
+def packageOrg = "ballerinax"
+def tomlVersion = stripBallerinaExtensionVersion("${project.version}")
+def ballerinaTomlFilePlaceHolder = new File("${project.rootDir}/build-config/resources/Ballerina.toml")
+def ballerinaTomlFile = new File("$project.projectDir/Ballerina.toml")
+
+def stripBallerinaExtensionVersion(String extVersion) {
+    if (extVersion.matches(project.ext.timestampedVersionRegex)) {
+        def splitVersion = extVersion.split('-')
+        if (splitVersion.length > 3) {
+            def strippedValues = splitVersion[0..-4]
+            return strippedValues.join('-')
+        } else {
+            return extVersion
+        }
+    } else {
+        return extVersion.replace("${project.ext.snapshotVersion}", "")
+    }
+}
+
+ballerina {
+    packageOrganization = packageOrg
+    module = packageName
+    testCoverageParam = "--code-coverage --coverage-format=xml"
+    isConnector = true
+    platform = "any"
+}
+
+task updateTomlFiles {
+    doLast {
+        def newBallerinaToml = ballerinaTomlFilePlaceHolder.text.replace("@project.version@", project.version)
+        newBallerinaToml = newBallerinaToml.replace("@toml.version@", tomlVersion)
+        ballerinaTomlFile.text = newBallerinaToml
+    }
+}
+
+task commitTomlFiles {
+    doLast {
+        project.exec {
+            ignoreExitValue true
+            if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+                commandLine 'cmd', '/c', "git commit -m \"[Automated] Update the toml files\" Ballerina.toml Dependencies.toml"
+            } else {
+                commandLine 'sh', '-c', "git commit -m '[Automated] Update the toml files' Ballerina.toml Dependencies.toml"
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact source: createArtifactZip, extension: 'zip'
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/ballerina-platform/module-${packageOrg}-azure.openai.chat")
+            credentials {
+                username = System.getenv("publishUser")
+                password = System.getenv("publishPAT")
+            }
+        }
+    }
+}
+
+clean {
+    delete 'build'
+}
+
+build.dependsOn "generatePomFileForMavenPublication"
+publishToMavenLocal.dependsOn build
+publish.dependsOn build
