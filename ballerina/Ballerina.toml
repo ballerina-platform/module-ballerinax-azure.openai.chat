@@ -5,7 +5,7 @@ name = "azure.openai.chat"
 version = "4.0.0"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
-keywords = ["AI/Chat", "Azure", "Azure OpenAI", "Chat Completions", "Vendor/Microsoft"]
+keywords = ["AI/Chat", "Azure", "Azure OpenAI", "Chat Completions", "Vendor/Microsoft", "Area/AI & Machine Learning", "Type/Connector", "Name/Azure OpenAI Chat"]
 icon = "icon.png"
 repository = "https://github.com/ballerina-platform/module-ballerinax-azure.openai.chat"
 

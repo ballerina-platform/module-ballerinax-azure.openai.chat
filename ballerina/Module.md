@@ -1,14 +1,14 @@
-# Ballerina Azure OpenAI Chat Completions connector
-
-[![Build](https://github.com/ballerina-platform/module-ballerinax-azure.openai.chat/actions/workflows/ci.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-azure.openai.chat/actions/workflows/ci.yml)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerinax-azure.openai.chat.svg)](https://github.com/ballerina-platform/module-ballerinax-azure.openai.chat/commits/main)
-[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/azure.openai.chat.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fazure.openai.chat)
-
 ## Overview
 
-[Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/) provides access to OpenAI's powerful language models including GPT-4o, GPT-4, and o-series models through Microsoft Azure's enterprise-grade infrastructure. It combines OpenAI's advanced AI capabilities with Azure's security, compliance, and regional availability features.
+[Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/) provides access to OpenAI's powerful language models including GPT-4o, GPT-4, and o-series models through Microsoft Azure's enterprise-grade infrastructure. It combines OpenAI's advanced AI capabilities with Azure's security, compliance, and regional availability features. This package offers functionality to connect and interact with the [Chat Completions API](https://learn.microsoft.com/en-us/rest/api/aifoundry/) of the Azure AI Foundry Models Service, enabling conversational AI applications with multi-turn conversations, function/tool calling, structured outputs, and vision capabilities.
 
-The `ballerinax/azure.openai.chat` package offers functionality to connect and interact with the [Chat Completions API](https://learn.microsoft.com/en-us/rest/api/aifoundry/) of the Azure AI Foundry Models Service. The Chat Completions API enables you to build conversational AI applications with features like multi-turn conversations, function/tool calling, structured outputs, and vision capabilities.
+### Key Features
+
+- Multi-turn conversational AI with context retention
+- Function and tool calling to extend model capabilities with custom functions
+- Structured outputs for reliable, schema-conformant responses
+- Vision capabilities for multimodal (text and image) input
+- Authentication via API key or Microsoft Entra ID access token
 
 ## Setup guide
 
