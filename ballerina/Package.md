@@ -6,9 +6,7 @@
 
 ## Overview
 
-[Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/) provides access to OpenAI's powerful language models including GPT-4o, GPT-4, and o-series models through Microsoft Azure's enterprise-grade infrastructure. It combines OpenAI's advanced AI capabilities with Azure's security, compliance, and regional availability features.
-
-The `ballerinax/azure.openai.chat` package offers functionality to connect and interact with the [Chat Completions API](https://learn.microsoft.com/en-us/rest/api/aifoundry/) of the Azure AI Foundry Models Service. The Chat Completions API enables you to build conversational AI applications with features like multi-turn conversations, function/tool calling, structured outputs, and vision capabilities.
+The `azure.openai.chat` module is a direct, fully-typed REST connector for the [Azure OpenAI Chat Completions API](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chat-completions) of the Azure AI Foundry Models Service. Use it as a standalone client to build conversational applications on Azure-hosted GPT models (GPT-4o, GPT-4, o-series) with multi-turn chat, tool/function calling, structured outputs, and vision — independent of the `ballerina/ai` agent framework (for which use `ai.azure`).
 
 ## Setup guide
 
