@@ -55,8 +55,14 @@ allprojects {
 
 def moduleVersion = project.version.replace("-SNAPSHOT", "")
 
-task build {
-    dependsOn(':azure.openai.chat-ballerina:build')
+if (tasks.names.contains('build')) {
+    tasks.named('build') {
+        dependsOn(':azure.openai.chat-ballerina:build')
+    }
+} else {
+    tasks.register('build') {
+        dependsOn(':azure.openai.chat-ballerina:build')
+    }
 }
 
 release {
